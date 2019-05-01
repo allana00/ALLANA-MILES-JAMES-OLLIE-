@@ -31,3 +31,90 @@ Umbrella.
 
 **10)What loses its head in the morning but gets it back at night?**
 A pillow.
+
+
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    let questions = ["I'm tall when I'm young and I'm short when I'm old?", "What has an eye but can not see?", "If you have me, you want to share me. If you share me, you haven't got me. What am I?"]
+    let answers = [["Candle", "Cow", "Peter Pan"], ["Blind Man","Needle", "iPod"],["A secret", "Food", "Water"]]
+    
+    //Variables
+    var currentQuestion = 0
+    var rightAnswerPlacement:UInt32 = 0
+    var points = 0;
+    
+    //LabelQuestion
+    
+    @IBOutlet weak var label: UILabel!
+    
+    //Button
+    @IBAction func action(_ sender: AnyObject)
+    {
+        if (sender.tag == Int(rightAnswerPlacement))
+        {
+        print ("RIGHT!!!")
+        points += 1
+        }
+        else
+    {
+        print ("WRONG!!!")
+        }
+        
+        if (currentQuestion != questions.count)
+        {
+        newQuestion()
+        }
+        else
+        {
+            performSegue (withIdentifier: "showScore", sender: self)
+        }
+    }
+    
+    override func viewDidAppear (_ animated: Bool)
+    {
+        newQuestion()
+    }
+    
+
+    //Function that displays new question
+    func newQuestion()
+    {
+        
+        label.text = questions[currentQuestion]
+        
+        rightAnswerPlacement = arc4random_uniform(3)+1
+    
+    //Create a Button
+        var button:UIButton = UIButton()
+        
+        var x = 1
+        for i in 1...3
+        {
+            // Create a button
+            button = view.viewWithTag(i) as! UIButton
+            
+            if (i == Int(rightAnswerPlacement))
+            {
+                button.setTitle(answers[currentQuestion][0], for: .normal)
+            }
+            else
+            {
+                button.setTitle(answers[currentQuestion][x], for: .normal)
+                x = 2
+            }
+        }
+            currentQuestion += 1
+            
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+    }
+
+
+}
+
+
