@@ -117,4 +117,11 @@ class ViewController: UIViewController {
 
 }
 
+This is what you need for image stuff
 
+first add imageview to storyboard and connect it which will make that below
+@IBOutlet weak var imageView: UIImageView!
+
+@IBAction func action(_ sender: AnyObject) {
+        
+        imageView.image = UIImage(named: "imagename")
